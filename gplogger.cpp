@@ -79,19 +79,19 @@ bool GpLogger::toFile(QString fileName, bool genIndex)
 			 << "ylabelname = \"" << yLabelName_ << "\"\n"
 			 << "set grid; \n"
 			 << "plot ";
-		
-	for (int i=1; i < container_.size(); ++i)
-	{
-		commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
-		if (genIndex)
-			commands << labels_.at(i-1) << "\", ";
-		else
-			commands << labels_.at(i) << "\", ";	  		 	
-	}		 
-	 
-	 // datafile u 	1:2 w lines title "SRC_FUEL", 
-  //    datafile u 1:3 w lines title "RECOVER_FUEL";
 
+	if (genIndex)
+		for (int i=0; i < container_.size(); ++i)
+		{
+			commands << " datafile u 1:" << QString::number(i+2) <<" w lines title \"";
+			commands << labels_.at(i) << "\", ";
+		}		 
+	else
+		for (int i=1; i < container_.size(); ++i)
+		{
+			commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
+			commands << labels_.at(i) << "\", ";
+		}		 
 
 	commands << "\nset title titlename;\n" 
 			 << "set xlabel xlabelname;\n"
