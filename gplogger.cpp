@@ -1,16 +1,16 @@
 
 #include <QFile>
 #include <QTextStream>
-#include "gplogger.h"
+#include "qltgplogger.h"
 
 
-GpLogger::GpLogger():
+QltGpLogger::QltGpLogger():
 			lenColumn_(0)
 {
 
 }
 
-bool GpLogger::addColumn(QStringList column, QString label)
+bool QltGpLogger::addColumn(QStringList column, QString label)
 {
 	if (column.size() == 0)
 	{
@@ -41,7 +41,7 @@ bool GpLogger::addColumn(QStringList column, QString label)
 }
 
 
-bool GpLogger::toFile(QString fileName, bool genIndex)
+bool QltGpLogger::toFile(QString fileName, bool genIndex)
 {
 
 	QFile fileData(fileName + ".txt");
@@ -102,17 +102,18 @@ bool GpLogger::toFile(QString fileName, bool genIndex)
 }
 
 
-void GpLogger::setTitleName(QString name)
+void QltGpLogger::setTitleName(QString name)
 {
 	titleName_ = name;
 }
 
-void GpLogger::setXLabelName(QString name)
+void QltGpLogger::setXLabelName(QString name)
 {
 	xLabelName_ = name;
 }
 
-void GpLogger::setYLabelName(QString name)
+void QltGpLogger::setYLabelName(QString name)
 {
 	yLabelName_ = name; 
 }
+

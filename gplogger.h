@@ -1,7 +1,7 @@
 /*
-	File: gplogger.h
+	File: qltgplogger.h
 
-	class GpLogger - gnuplot logger, агрегатор данных подготавливающий и 
+	class QltGpLogger - gnuplot logger, агрегатор данных подготавливающий и 
 	записывающий данные в формате пригодном для визуализации с помощю gnuplot. 
 
 */
@@ -10,12 +10,12 @@
 #include <QStringList>
 
 
-class GpLogger
+class QltGpLogger
 {
 
 public:
 
-	GpLogger();
+	QltGpLogger();
 
 	bool addColumn(QStringList column, QString label);
 
@@ -39,5 +39,5 @@ private:
 	QString xLabelName_;
 	QString yLabelName_; 
 
-
 };
+
