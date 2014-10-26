@@ -48,7 +48,6 @@ bool QltGpLogger::addPolygon(QStringList lat, QStringList lon, QString label)
 	if (lat.size() != lon.size())
 	{
 		errorString_ = "Error! #5";
-		qDebug("Error! #5"  );
 		return false;
 	}
 
@@ -65,7 +64,6 @@ bool QltGpLogger::addTrack(QStringList lat, QStringList lon, QString label)
 	if (lat.size() != lon.size())
 	{
 		errorString_ = "Error! #5";
-		qDebug("Error! #5"  );
 		return false;
 	}
 
@@ -204,8 +202,6 @@ void QltGpLogger::writeGisCmd(QFile &file)
 			 << "ylabelname = \"" << yLabelName_ << "\"\n"
 			 << "set grid; \n"
 			 << "plot ";
-
-  qDebug() << "polygonsLat_.size() = " << polygonsLat_.size();
 
 	for (int i=0; i < polygonsLat_.size(); ++i)
 	{
