@@ -172,7 +172,7 @@ void QltGpLogger::writeGisData(QFile &file)
     	
     	// Замыкание полигона.
     	if (latitude.size() > 0)
-    	  out << longitude.at(0).at(index) << "\t" << latitude.at(0).at(index) << "\n";
+    	  out << longitude.at(0) << "\t" << latitude.at(0) << "\n";
     	
     	out << "\n";
     	out << "\n";
