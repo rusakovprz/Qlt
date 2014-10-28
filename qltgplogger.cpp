@@ -183,8 +183,10 @@ void QltGpLogger::writeGisData(QFile &file)
       QStringList latitude = tracksLat_.at(index);
       QStringList longitude = tracksLon_.at(index);
     
-    	for (int i = 0; i < latitude.size(); ++i)
-    		out << longitude.at(i) << "\t" << latitude.at(i) << "\n";
+    	for (int i = 0; i < latitude.size()-1; ++i)
+    		out << longitude.at(i) << "\t" << latitude.at(i) << "\t" 
+    		    << QString::number(longitude.at(i+1).toFloat()-longitude.at(i).toFloat()) << "\t" 
+    		    << QString::number(latitude.at(i+1).toFloat()-latitude.at(i).toFloat()) << "\n";
     	
     	out << "\n";
     	out << "\n";
@@ -211,7 +213,7 @@ void QltGpLogger::writeGisCmd(QFile &file)
 
   for (int i=0; i < tracksLat_.size(); ++i)
 	{
-		commands << " datafile index " << polygonsLat_.size() + i << " u 1:2 w lines title \"";
+		commands << " datafile index " << polygonsLat_.size() + i << " u 1:2:3:4 w vectors title \"";
 		commands << tracksLabels_.at(i) << "\", ";
 	}		 
 
