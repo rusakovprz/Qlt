@@ -137,7 +137,12 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 			 << "xlabelname = \"" << xLabelName_ << "\"\n"
 			 << "ylabelname = \"" << yLabelName_ << "\"\n"
 			 << "set grid; \n"
-			 << "plot ";
+			 
+			 << "\nset title titlename;\n" 
+			 << "set xlabel xlabelname;\n"
+			 << "set ylabel ylabelname;\n"
+			 		 
+			 << "\nplot ";
 
 	if (genIndex)
 		for (int i=0; i < container_.size(); ++i)
@@ -152,10 +157,7 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 			commands << labels_.at(i) << "\", ";
 		}		 
 
-	commands << "\nset title titlename;\n" 
-			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n"
-			 << "pause -1;\n";
+	commands << "\n\npause -1;\n";
 }
 
 void QltGpLogger::writeGisData(QFile &file)
@@ -203,7 +205,11 @@ void QltGpLogger::writeGisCmd(QFile &file)
 			 << "xlabelname = \"" << xLabelName_ << "\"\n"
 			 << "ylabelname = \"" << yLabelName_ << "\"\n"
 			 << "set grid; \n"
-			 << "plot ";
+  
+       << "\nset title titlename;\n" 
+			 << "set xlabel xlabelname;\n"
+			 << "set ylabel ylabelname;\n"
+			 << "\nplot ";
 
 	for (int i=0; i < polygonsLat_.size(); ++i)
 	{
@@ -215,12 +221,9 @@ void QltGpLogger::writeGisCmd(QFile &file)
 	{
 		commands << " datafile index " << polygonsLat_.size() + i << " u 1:2:3:4 w vectors title \"";
 		commands << tracksLabels_.at(i) << "\", ";
-	}		 
-
-	commands << "\nset title titlename;\n" 
-			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n"
-			 << "pause -1;\n";  
+	}		  
+	
+	commands  << "\n\npause -1;\n"; 
 }
   
 
