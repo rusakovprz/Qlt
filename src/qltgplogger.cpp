@@ -146,21 +146,7 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 {
   QTextStream commands(&file);
 
-  commands << "datafile = \"" << fileName_ << ".txt\" \n" 
-			 <<	"titlename = \"" << titleName_ << "\"\n"
-			 << "xlabelname = \"" << xLabelName_ << "\"\n"
-			 << "ylabelname = \"" << yLabelName_ << "\"\n"
-			 << "set grid; \n"
-			 
-			 << "\nset title titlename;\n" 
-			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n";
-		
-	if (toImageFlag_)
-	{
-		commands << "set terminal pngcairo size " << sizeImage_ << "\n";
-		commands << "set output \"" << fileName_ << ".png\" \n";
-	}			 
+  commands << this->comonCommands();
 	
 	commands << "\nplot ";
 
@@ -222,21 +208,7 @@ void QltGpLogger::writeGisCmd(QFile &file)
 {
   QTextStream commands(&file);
 
-  commands << "datafile = \"" << fileName_ << ".txt\" \n" 
-			 <<	"titlename = \"" << titleName_ << "\"\n"
-			 << "xlabelname = \"" << xLabelName_ << "\"\n"
-			 << "ylabelname = \"" << yLabelName_ << "\"\n"
-			 << "set grid; \n"
-  
-       << "\nset title titlename;\n" 
-			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n";
-		
-	if (toImageFlag_)
-	{
-		commands << "set terminal pngcairo size " << sizeImage_ << "\n";
-		commands << "set output \"" << fileName_ << ".png\" \n";
-	}			 
+  commands << this->comonCommands();
 	
 	commands << "\nplot ";
 
@@ -254,6 +226,28 @@ void QltGpLogger::writeGisCmd(QFile &file)
 	
 	if (!toImageFlag_)
 		commands  << "\n\npause -1;\n"; 
+}
+
+
+QString QltGpLogger::comonCommands()
+{
+  QString commands;
+  commands = "datafile = \"" + fileName_ + ".txt\" \n" 
+			 +	"titlename = \"" + titleName_ + "\"\n"
+			 + "xlabelname = \"" + xLabelName_ + "\"\n"
+			 + "ylabelname = \"" + yLabelName_ + "\"\n"
+			 + "set grid; \n"
+			 + "\nset title titlename;\n" 
+			 + "set xlabel xlabelname;\n"
+			 + "set ylabel ylabelname;\n";
+
+  if (toImageFlag_)
+	{
+		commands += "set terminal pngcairo size " + sizeImage_ + "\n";
+		commands += "set output \"" + fileName_ + ".png\" \n";
+	}
+
+  return commands;
 }
   
 

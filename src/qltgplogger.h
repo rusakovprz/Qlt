@@ -44,6 +44,8 @@ private:
   void writeGisData(QFile &file);
   void writeGisCmd (QFile &file);
 
+  QString comonCommands();
+
   Mode mode_;
     
 	QList<QStringList> container_;
