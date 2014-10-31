@@ -7,7 +7,8 @@
 
 QltGpLogger::QltGpLogger(Mode mode):
 			mode_(mode),
-			lenColumn_(0)
+			lenColumn_(0),
+			toImageFlag_(false)
 {
 
 }
@@ -72,6 +73,19 @@ bool QltGpLogger::addTrack(QStringList lat, QStringList lon, QString label)
   tracksLabels_.append(label);
 
   return true;
+}
+
+
+void QltGpLogger::setImageMode(QString size)
+{
+	toImageFlag_ = true;
+	sizeImage_ = size;
+}
+
+
+void QltGpLogger::setGuiMode()
+{
+	toImageFlag_ = false;
 }
 
 
@@ -140,9 +154,15 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 			 
 			 << "\nset title titlename;\n" 
 			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n"
-			 		 
-			 << "\nplot ";
+			 << "set ylabel ylabelname;\n";
+		
+	if (toImageFlag_)
+	{
+		commands << "set terminal pngcairo size " << sizeImage_ << "\n";
+		commands << "set output \"" << fileName_ << ".png\" \n";
+	}			 
+	
+	commands << "\nplot ";
 
 	if (genIndex)
 		for (int i=0; i < container_.size(); ++i)
@@ -157,8 +177,10 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 			commands << labels_.at(i) << "\", ";
 		}		 
 
-	commands << "\n\npause -1;\n";
+	if (!toImageFlag_)
+		commands << "\n\npause -1;\n";
 }
+
 
 void QltGpLogger::writeGisData(QFile &file)
 {
@@ -208,8 +230,15 @@ void QltGpLogger::writeGisCmd(QFile &file)
   
        << "\nset title titlename;\n" 
 			 << "set xlabel xlabelname;\n"
-			 << "set ylabel ylabelname;\n"
-			 << "\nplot ";
+			 << "set ylabel ylabelname;\n";
+		
+	if (toImageFlag_)
+	{
+		commands << "set terminal pngcairo size " << sizeImage_ << "\n";
+		commands << "set output \"" << fileName_ << ".png\" \n";
+	}			 
+	
+	commands << "\nplot ";
 
 	for (int i=0; i < polygonsLat_.size(); ++i)
 	{
@@ -223,7 +252,8 @@ void QltGpLogger::writeGisCmd(QFile &file)
 		commands << tracksLabels_.at(i) << "\", ";
 	}		  
 	
-	commands  << "\n\npause -1;\n"; 
+	if (!toImageFlag_)
+		commands  << "\n\npause -1;\n"; 
 }
   
 

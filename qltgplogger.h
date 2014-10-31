@@ -25,6 +25,9 @@ public:
 	bool addPolygon(QStringList lat, QStringList lon, QString label);
 	bool addTrack(QStringList lat, QStringList lon, QString label);
 
+	void setImageMode(QString size = "800,600");
+	void setGuiMode();
+
 	bool toFile(QString fileName = "gpdata", bool genIndex = true);
 
 	QString errorString() { return errorString_; };
@@ -48,16 +51,18 @@ private:
 	
 	QList<QStringList> polygonsLat_;
 	QList<QStringList> polygonsLon_;
-  QStringList polygonsLabels_;
+	QStringList polygonsLabels_;
 
-  QList<QStringList> tracksLat_;
+ 	QList<QStringList> tracksLat_;
 	QList<QStringList> tracksLon_;
-  QStringList tracksLabels_;
+	QStringList tracksLabels_;
 
 	int lenColumn_;
 	QString errorString_;
 
-  QString fileName_;
+	QString fileName_;
+	bool toImageFlag_;
+	QString sizeImage_;
 
 	QString titleName_;
 	QString xLabelName_;
