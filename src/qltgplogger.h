@@ -17,6 +17,7 @@ class QltGpLogger
 public:
 
   enum Mode { GeneralMode, GisMode };
+  enum LabelType {First, Graph, Screen};
 
 	QltGpLogger(Mode mode = GeneralMode);
 
@@ -36,6 +37,8 @@ public:
 	void setXLabelName(QString name);
 	void setYLabelName(QString name);
 
+  void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
+
 private:
 
   void writeGenData(QFile &file, bool genIndex);
@@ -45,6 +48,7 @@ private:
   void writeGisCmd (QFile &file);
 
   QString comonCommands();
+  QString textLabelsCommands();
 
   Mode mode_;
     
@@ -70,5 +74,9 @@ private:
 	QString xLabelName_;
 	QString yLabelName_; 
 
+  QStringList firstLabels_;
+  QStringList graphLabels_;
+  QStringList screenLabels_;
+  
 };
 

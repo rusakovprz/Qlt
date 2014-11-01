@@ -147,6 +147,7 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
   QTextStream commands(&file);
 
   commands << this->comonCommands();
+  commands << this->textLabelsCommands();
 	
 	commands << "\nplot ";
 
@@ -209,7 +210,8 @@ void QltGpLogger::writeGisCmd(QFile &file)
   QTextStream commands(&file);
 
   commands << this->comonCommands();
-	
+	commands << this->textLabelsCommands();
+
 	commands << "\nplot ";
 
 	for (int i=0; i < polygonsLat_.size(); ++i)
@@ -251,6 +253,23 @@ QString QltGpLogger::comonCommands()
 }
   
 
+QString QltGpLogger::textLabelsCommands()
+{
+  QString commands;
+  
+  for (int index = 0; index < firstLabels_.size(); ++index)
+    commands += firstLabels_.at(index);
+  
+  for (int index = 0; index < graphLabels_.size(); ++index)
+    commands += graphLabels_.at(index);
+
+  for (int index = 0; index < screenLabels_.size(); ++index)
+    commands += screenLabels_.at(index);
+
+  return commands;
+}
+
+
 void QltGpLogger::setTitleName(QString name)
 {
 	titleName_ = name;
@@ -264,5 +283,31 @@ void QltGpLogger::setXLabelName(QString name)
 void QltGpLogger::setYLabelName(QString name)
 {
 	yLabelName_ = name; 
+}
+
+
+void QltGpLogger::addLabel(LabelType type, double x, double y, QString text, QString color)
+{
+  QString label("set label \"" + text + "\"  at ");
+  
+  QString strX = QString::number(x);
+  QString strY = QString::number(y);
+    
+  switch(type)
+  {
+    case First :
+      label += "first " + strX + ", first " + strY + " tc rgb \"" + color +"\"\n";
+      firstLabels_.append(label);
+      break;
+    case Graph :
+      label += "graph " + strX + ", graph " + strY + " tc rgb \"" + color +"\"\n";
+      graphLabels_.append(label);
+      break;
+    case Screen :
+      label += "screen " + strX + ", screen " + strY + " tc rgb \"" + color +"\"\n";
+      screenLabels_.append(label);
+      break;      
+  }  
+
 }
 

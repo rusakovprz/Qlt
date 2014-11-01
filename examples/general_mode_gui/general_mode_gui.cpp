@@ -3,7 +3,6 @@
 
 int main()
 {
-  
   QltGpLogger logger_1;
   
   QStringList column;
@@ -14,9 +13,15 @@ int main()
   column.append("7");
 
   logger_1.addColumn(column, "column1");
+	
 	logger_1.setTitleName("Test");
 	logger_1.setXLabelName("X");
 	logger_1.setYLabelName("Y");
+	
+	logger_1.addLabel(QltGpLogger::First, 2, 3, "First (2,3)", "#0000ff");
+	logger_1.addLabel(QltGpLogger::Graph, 0.05, 0.05, "Graph (0.05,0.05)", "#00ff00");
+	logger_1.addLabel(QltGpLogger::Screen, 0.1, 0.95, "Screen(0.1,0.95)", "#ff0000");
+  
   logger_1.toFile("data_gen_gui_1");
   
   QltGpLogger logger_2;
