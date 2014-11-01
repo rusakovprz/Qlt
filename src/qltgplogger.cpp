@@ -13,7 +13,7 @@ QltGpLogger::QltGpLogger(Mode mode):
 
 }
 
-bool QltGpLogger::addColumn(QStringList column, QString label)
+bool QltGpLogger::addColumn(QStringList column, QString label, bool axesY2)
 {
 	if (column.size() == 0)
 	{
@@ -23,9 +23,11 @@ bool QltGpLogger::addColumn(QStringList column, QString label)
 
 	if (lenColumn_ == 0)
 	{
+	  // FIXME: double code.
 		container_.append(column);
 		lenColumn_ = column.size();
 		labels_.append(label);
+		axesY2Flag_.append(axesY2);
 		return true;
 
 	} else
@@ -35,9 +37,11 @@ bool QltGpLogger::addColumn(QStringList column, QString label)
 			errorString_ = "Error! #2";
 			return false;
 		}
-
+    
+    // FIXME: double code.
 		container_.append(column);
 		labels_.append(label);
+		axesY2Flag_.append(axesY2);
 	}
 
 	return true;
@@ -142,11 +146,21 @@ void QltGpLogger::writeGenData(QFile &file, bool genIndex)
 }
 
 
-void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
+void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
 {
   QTextStream commands(&file);
 
   commands << this->comonCommands();
+  
+  for (int index=0; index < axesY2Flag_.size(); ++index)
+  {
+    if (axesY2Flag_.at(index))
+    {
+      commands << "set y2tics\n" << "set y2label \"" << y2LabelName_ << "\"\n";
+      break;
+    }  
+  }
+  
   commands << this->textLabelsCommands();
 	
 	commands << "\nplot ";
@@ -155,13 +169,19 @@ void QltGpLogger::writeGenCmd (QFile &file, bool genIndex)
 		for (int i=0; i < container_.size(); ++i)
 		{
 			commands << " datafile u 1:" << QString::number(i+2) <<" w lines title \"";
-			commands << labels_.at(i) << "\", ";
+			commands << labels_.at(i) << "\"";
+			  if (axesY2Flag_.at(i))
+			    commands << "axes x1y2";  
+			commands << ", ";
 		}		 
 	else
 		for (int i=1; i < container_.size(); ++i)
 		{
 			commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
-			commands << labels_.at(i) << "\", ";
+			commands << labels_.at(i) << "\"";
+			  if (axesY2Flag_.at(i))
+			    commands << "axes x1y2";  
+			commands << ", ";
 		}		 
 
 	if (!toImageFlag_)
@@ -283,6 +303,12 @@ void QltGpLogger::setXLabelName(QString name)
 void QltGpLogger::setYLabelName(QString name)
 {
 	yLabelName_ = name; 
+}
+
+
+void QltGpLogger::setY2LabelName(QString name)
+{
+	y2LabelName_ = name; 
 }
 
 

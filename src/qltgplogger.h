@@ -21,7 +21,7 @@ public:
 
 	QltGpLogger(Mode mode = GeneralMode);
 
-	bool addColumn(QStringList column, QString label);
+	bool addColumn(QStringList column, QString label, bool axesY2 = false);
 	
 	bool addPolygon(QStringList lat, QStringList lon, QString label);
 	bool addTrack(QStringList lat, QStringList lon, QString label);
@@ -36,6 +36,7 @@ public:
 	void setTitleName(QString name);
 	void setXLabelName(QString name);
 	void setYLabelName(QString name);
+  void setY2LabelName(QString name);
 
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
 
@@ -54,6 +55,7 @@ private:
     
 	QList<QStringList> container_;
 	QStringList labels_;
+	QList<bool> axesY2Flag_;
 	
 	QList<QStringList> polygonsLat_;
 	QList<QStringList> polygonsLon_;
@@ -72,7 +74,8 @@ private:
 
 	QString titleName_;
 	QString xLabelName_;
-	QString yLabelName_; 
+	QString yLabelName_;
+	QString y2LabelName_; 
 
   QStringList firstLabels_;
   QStringList graphLabels_;
