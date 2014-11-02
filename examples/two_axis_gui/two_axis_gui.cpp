@@ -21,11 +21,11 @@ int main()
   
   logger.addColumn(column1, "column1");
   logger.addColumn(column2, "column2", true);
-  logger.setTitleName("Test two axes");
+  logger.setTitleName("Test two axis");
 	logger.setXLabelName("X");
 	logger.setYLabelName("Y_1");
 	logger.setY2LabelName("Y_2");
-  logger.toFile("data_two_axes_gui");
+  logger.toFile("data_two_axis_gui");
   
   return 0;
 }

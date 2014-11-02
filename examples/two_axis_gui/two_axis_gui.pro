@@ -3,8 +3,8 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = two_axes_gui
+TARGET = two_axis_gui
 INCLUDEPATH += ../../src/
 
 # Input
-SOURCES += two_axes_gui.cpp ../../src/qltgplogger.cpp
+SOURCES += two_axis_gui.cpp ../../src/qltgplogger.cpp

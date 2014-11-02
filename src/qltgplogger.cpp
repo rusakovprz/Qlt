@@ -13,7 +13,7 @@ QltGpLogger::QltGpLogger(Mode mode):
 
 }
 
-bool QltGpLogger::addColumn(QStringList column, QString label, bool axesY2)
+bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 {
 	if (column.size() == 0)
 	{
@@ -27,7 +27,7 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axesY2)
 		container_.append(column);
 		lenColumn_ = column.size();
 		labels_.append(label);
-		axesY2Flag_.append(axesY2);
+		axisY2Flag_.append(axisY2);
 		return true;
 
 	} else
@@ -41,7 +41,7 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axesY2)
     // FIXME: double code.
 		container_.append(column);
 		labels_.append(label);
-		axesY2Flag_.append(axesY2);
+		axisY2Flag_.append(axisY2);
 	}
 
 	return true;
@@ -152,9 +152,9 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
 
   commands << this->comonCommands();
   
-  for (int index=0; index < axesY2Flag_.size(); ++index)
+  for (int index=0; index < axisY2Flag_.size(); ++index)
   {
-    if (axesY2Flag_.at(index))
+    if (axisY2Flag_.at(index))
     {
       commands << "set y2tics\n" << "set y2label \"" << y2LabelName_ << "\"\n";
       break;
@@ -170,7 +170,7 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
 		{
 			commands << " datafile u 1:" << QString::number(i+2) <<" w lines title \"";
 			commands << labels_.at(i) << "\"";
-			  if (axesY2Flag_.at(i))
+			  if (axisY2Flag_.at(i))
 			    commands << "axes x1y2";  
 			commands << ", ";
 		}		 
@@ -179,7 +179,7 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
 		{
 			commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
 			commands << labels_.at(i) << "\"";
-			  if (axesY2Flag_.at(i))
+			  if (axisY2Flag_.at(i))
 			    commands << "axes x1y2";  
 			commands << ", ";
 		}		 

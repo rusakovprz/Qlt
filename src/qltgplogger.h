@@ -21,7 +21,7 @@ public:
 
 	QltGpLogger(Mode mode = GeneralMode);
 
-	bool addColumn(QStringList column, QString label, bool axesY2 = false);
+	bool addColumn(QStringList column, QString label, bool axisY2 = false);
 	
 	bool addPolygon(QStringList lat, QStringList lon, QString label);
 	bool addTrack(QStringList lat, QStringList lon, QString label);
@@ -55,7 +55,7 @@ private:
     
 	QList<QStringList> container_;
 	QStringList labels_;
-	QList<bool> axesY2Flag_;
+	QList<bool> axisY2Flag_;
 	
 	QList<QStringList> polygonsLat_;
 	QList<QStringList> polygonsLon_;
