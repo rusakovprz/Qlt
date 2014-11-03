@@ -40,6 +40,9 @@ public:
 
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
 
+  // FIXME: Исключить ограничение - метод должен вызываться пред toFile(.....). 
+  void rangeYAxis();
+
 private:
 
   void writeGenData(QFile &file, bool genIndex);
@@ -56,6 +59,11 @@ private:
 	QList<QStringList> container_;
 	QStringList labels_;
 	QList<bool> axisY2Flag_;
+	
+	double y1_min_;
+	double y1_max_;
+	double y2_min_;
+	double y2_max_;
 	
 	QList<QStringList> polygonsLat_;
 	QList<QStringList> polygonsLon_;
@@ -80,6 +88,7 @@ private:
   QStringList firstLabels_;
   QStringList graphLabels_;
   QStringList screenLabels_;
-  
+
+  bool isRangeYAxis;  
 };
 

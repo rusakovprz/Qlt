@@ -1,4 +1,5 @@
-
+#include <math.h>
+#include <limits>
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
@@ -6,9 +7,14 @@
 
 
 QltGpLogger::QltGpLogger(Mode mode):
-			mode_(mode),
-			lenColumn_(0),
-			toImageFlag_(false)
+      mode_(mode),
+      y1_min_(std::numeric_limits<double>::max()),
+      y1_max_(std::numeric_limits<double>::min()),
+      y2_min_(std::numeric_limits<double>::max()),
+      y2_max_(std::numeric_limits<double>::min()),
+      lenColumn_(0),
+      toImageFlag_(false),
+      isRangeYAxis(false)
 {
 
 }
@@ -22,27 +28,39 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 	}
 
 	if (lenColumn_ == 0)
+	  lenColumn_ = column.size();
+	  
+	if (column.size() != lenColumn_)
 	{
-	  // FIXME: double code.
-		container_.append(column);
-		lenColumn_ = column.size();
-		labels_.append(label);
-		axisY2Flag_.append(axisY2);
-		return true;
+	  errorString_ = "Error! #2";
+	  return false;
+	}  
+  
+	container_.append(column);
+	labels_.append(label);
+	axisY2Flag_.append(axisY2);
 
-	} else
-	{
-		if (column.size() != lenColumn_)
-		{
-			errorString_ = "Error! #2";
-			return false;
-		}
-    
-    // FIXME: double code.
-		container_.append(column);
-		labels_.append(label);
-		axisY2Flag_.append(axisY2);
-	}
+  for (int index=0; index < column.size(); ++index)
+  {
+    double number = QString(column.at(index)).toDouble();
+  
+    if (axisY2)
+    {
+      if (number > y2_max_)
+        y2_max_ = number;
+      
+      if (number < y2_min_)
+        y2_min_ = number;
+      
+    } else
+    {
+      if (number > y1_max_)
+        y1_max_ = number;
+      
+      if (number < y1_min_)
+        y1_min_ = number;
+    }    
+  }
 
 	return true;
 }
@@ -180,7 +198,7 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
 			commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
 			commands << labels_.at(i) << "\"";
 			  if (axisY2Flag_.at(i))
-			    commands << "axes x1y2";  
+			    commands << " axes x1y2";  
 			commands << ", ";
 		}		 
 
@@ -265,10 +283,16 @@ QString QltGpLogger::comonCommands()
 
   if (toImageFlag_)
 	{
-		commands += "set terminal pngcairo size " + sizeImage_ + "\n";
-		commands += "set output \"" + fileName_ + ".png\" \n";
+    commands += "set terminal pngcairo size " + sizeImage_ + "\n";
+    commands += "set output \"" + fileName_ + ".png\" \n";
 	}
 
+  if (isRangeYAxis)
+  {
+    commands += "set yr [" + QString::number(y1_min_) + ":" + QString::number(y1_max_) + "] \n";
+		commands += "set y2r [" + QString::number(y2_min_) + ":" + QString::number(y2_max_) + "] \n";
+  }
+  
   return commands;
 }
   
@@ -336,4 +360,21 @@ void QltGpLogger::addLabel(LabelType type, double x, double y, QString text, QSt
   }  
 
 }
+
+
+void QltGpLogger::rangeYAxis()
+{
+  isRangeYAxis = true;
+
+  y1_min_ -= (y1_max_ - y1_min_)/4;
+  y2_max_ += (y2_max_ - y2_min_)*4;
+  
+  // round
+  y1_max_ = ceil(y1_max_);
+  y1_min_ = floor(y1_min_);
+  y2_max_ = ceil(y2_max_);
+  y2_min_ = floor(y2_min_);
+  
+}
+
 
