@@ -40,6 +40,9 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 	labels_.append(label);
 	axisY2Flag_.append(axisY2);
 
+  if (label == "")
+    return true;
+
   for (int index=0; index < column.size(); ++index)
   {
     double number = QString(column.at(index)).toDouble();
