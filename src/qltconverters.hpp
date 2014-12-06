@@ -15,6 +15,8 @@ class QltConverters
 
 public:
   
+  // Преобразует числовые контейнеры (такие как: QVector<double>, QVector<int>, QList<double>, QList<int>,
+  // std::vector<double>,std::vector<int> и т.д.) в QStringList.
   template <typename TContainer>
   static QStringList toQStringList(TContainer inContainer)
   {
