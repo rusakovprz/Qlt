@@ -21,24 +21,24 @@ QltGpLogger::QltGpLogger(Mode mode):
 
 bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 {
-	if (column.size() == 0)
-	{
-		errorString_ = "Error! #1";
-		return false;
-	}
+  if (column.size() == 0)
+  {
+    errorString_ = "Error! #1";
+    return false;
+  }
 
-	if (lenColumn_ == 0)
-	  lenColumn_ = column.size();
+  if (lenColumn_ == 0)
+    lenColumn_ = column.size();
 	  
-	if (column.size() != lenColumn_)
-	{
-	  errorString_ = "Error! #2";
-	  return false;
-	}  
+  if (column.size() != lenColumn_)
+  {
+    errorString_ = "Error! #2";
+    return false;
+  }  
   
-	container_.append(column);
-	labels_.append(label);
-	axisY2Flag_.append(axisY2);
+  container_.append(column);
+  labels_.append(label);
+  axisY2Flag_.append(axisY2);
 
   if (label == "")
     return true;
@@ -65,20 +65,20 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
     }    
   }
 
-	return true;
+  return true;
 }
 
 
 bool QltGpLogger::addPolygon(QStringList lat, QStringList lon, QString label)
 {
-	if (lat.size() != lon.size())
-	{
-		errorString_ = "Error! #5";
-		return false;
-	}
+  if (lat.size() != lon.size())
+  {
+    errorString_ = "Error! #5";
+    return false;
+  }
 
-	polygonsLat_.append(lat);
-	polygonsLon_.append(lon);
+  polygonsLat_.append(lat);
+  polygonsLon_.append(lon);
   polygonsLabels_.append(label);
 
   return true;
@@ -87,14 +87,14 @@ bool QltGpLogger::addPolygon(QStringList lat, QStringList lon, QString label)
 
 bool QltGpLogger::addTrack(QStringList lat, QStringList lon, QString label)
 {
-	if (lat.size() != lon.size())
-	{
-		errorString_ = "Error! #5";
-		return false;
-	}
+  if (lat.size() != lon.size())
+  {
+    errorString_ = "Error! #5";
+    return false;
+  }
 
   tracksLat_.append(lat);
-	tracksLon_.append(lon);
+  tracksLon_.append(lon);
   tracksLabels_.append(label);
 
   return true;
@@ -103,67 +103,67 @@ bool QltGpLogger::addTrack(QStringList lat, QStringList lon, QString label)
 
 void QltGpLogger::setImageMode(QString size)
 {
-	toImageFlag_ = true;
-	sizeImage_ = size;
+  toImageFlag_ = true;
+  sizeImage_ = size;
 }
 
 
 void QltGpLogger::setGuiMode()
 {
-	toImageFlag_ = false;
+  toImageFlag_ = false;
 }
 
 
 bool QltGpLogger::toFile(QString fileName, bool genIndex)
 {
-    fileName_ = fileName;
+  fileName_ = fileName;
     
-    QFile fileData(fileName + ".txt");
-    if (!fileData.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-    	errorString_ = "Error! #3";
-      return false;
-    }
+  QFile fileData(fileName + ".txt");
+  if (!fileData.open(QIODevice::WriteOnly | QIODevice::Text))
+  {
+    errorString_ = "Error! #3";
+    return false;
+  }
 
-    QFile fileCmd(fileName + ".gpl");
-    if (!fileCmd.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-    	errorString_ = "Error! #4";
-      return false;
-    }
+  QFile fileCmd(fileName + ".gpl");
+  if (!fileCmd.open(QIODevice::WriteOnly | QIODevice::Text))
+  {
+    errorString_ = "Error! #4";
+    return false;
+  }
 
-    switch(mode_)
-    {
-      case GeneralMode :
-            writeGenData(fileData, genIndex);
-            writeGenCmd(fileCmd, genIndex);
-            break;
-      case GisMode :
-            writeGisData(fileData);
-            writeGisCmd(fileCmd);
-            break;
-      default : 
-            break;
-    }
-    
-    return true;
+  switch(mode_)
+  {
+    case GeneralMode :
+      writeGenData(fileData, genIndex);
+      writeGenCmd(fileCmd, genIndex);
+      break;
+    case GisMode :
+      writeGisData(fileData);
+      writeGisCmd(fileCmd);
+      break;
+    default : 
+      break;
+  }
+
+  return true;
 }
 
 
 void QltGpLogger::writeGenData(QFile &file, bool genIndex)
 {
-    QTextStream out(&file);
+  QTextStream out(&file);
 
-    for (int index = 0; index < lenColumn_; ++index)
-    {
-    	if (genIndex)	
-    		out << index <<"\t";
+  for (int index = 0; index < lenColumn_; ++index)
+  {
+    if (genIndex)	
+      out << index <<"\t";
 
-    	for (int i = 0; i < container_.size(); ++i)
-    		out <<container_.at(i).at(index) <<"\t";
+    for (int i = 0; i < container_.size(); ++i)
+      out <<container_.at(i).at(index) <<"\t";
     	
-    	out << "\n";
-    }
+    out << "\n";
+  }
 }
 
 
@@ -184,29 +184,29 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
   
   commands << this->textLabelsCommands();
 	
-	commands << "\nplot ";
+  commands << "\nplot ";
 
-	if (genIndex)
-		for (int i=0; i < container_.size(); ++i)
-		{
-			commands << " datafile u 1:" << QString::number(i+2) <<" w lines title \"";
-			commands << labels_.at(i) << "\"";
-			  if (axisY2Flag_.at(i))
-			    commands << "axes x1y2";  
-			commands << ", ";
-		}		 
-	else
-		for (int i=1; i < container_.size(); ++i)
-		{
-			commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
-			commands << labels_.at(i) << "\"";
-			  if (axisY2Flag_.at(i))
-			    commands << " axes x1y2";  
-			commands << ", ";
-		}		 
+  if (genIndex)
+    for (int i=0; i < container_.size(); ++i)
+    {
+      commands << " datafile u 1:" << QString::number(i+2) <<" w lines title \"";
+      commands << labels_.at(i) << "\"";
+      if (axisY2Flag_.at(i))
+        commands << "axes x1y2";  
+      commands << ", ";
+    }		 
+  else
+    for (int i=1; i < container_.size(); ++i)
+    {
+      commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
+      commands << labels_.at(i) << "\"";
+      if (axisY2Flag_.at(i))
+        commands << " axes x1y2";  
+      commands << ", ";
+    }		 
 
-	if (!toImageFlag_)
-		commands << "\n\npause -1;\n";
+  if (!toImageFlag_)
+    commands << "\n\npause -1;\n";
 }
 
 
@@ -219,29 +219,29 @@ void QltGpLogger::writeGisData(QFile &file)
       QStringList latitude = polygonsLat_.at(index);
       QStringList longitude = polygonsLon_.at(index);
     
-    	for (int i = 0; i < latitude.size(); ++i)
-    		out << longitude.at(i) << "\t" << latitude.at(i) << "\n";
+      for (int i = 0; i < latitude.size(); ++i)
+        out << longitude.at(i) << "\t" << latitude.at(i) << "\n";
     	
-    	// Замыкание полигона.
-    	if (latitude.size() > 0)
-    	  out << longitude.at(0) << "\t" << latitude.at(0) << "\n";
+      // Замыкание полигона.
+      if (latitude.size() > 0)
+        out << longitude.at(0) << "\t" << latitude.at(0) << "\n";
     	
-    	out << "\n";
-    	out << "\n";
+      out << "\n";
+      out << "\n";
   }
 
   for (int index = 0; index < tracksLat_.size(); ++index)
   {
       QStringList latitude = tracksLat_.at(index);
       QStringList longitude = tracksLon_.at(index);
-    
-    	for (int i = 0; i < latitude.size()-1; ++i)
-    		out << longitude.at(i) << "\t" << latitude.at(i) << "\t" 
-    		    << QString::number(longitude.at(i+1).toFloat()-longitude.at(i).toFloat()) << "\t" 
-    		    << QString::number(latitude.at(i+1).toFloat()-latitude.at(i).toFloat()) << "\n";
+
+      for (int i = 0; i < latitude.size()-1; ++i)
+        out << longitude.at(i) << "\t" << latitude.at(i) << "\t" 
+            << QString::number(longitude.at(i+1).toFloat()-longitude.at(i).toFloat()) << "\t" 
+            << QString::number(latitude.at(i+1).toFloat()-latitude.at(i).toFloat()) << "\n";
     	
-    	out << "\n";
-    	out << "\n";
+      out << "\n";
+      out << "\n";
   }
 }
 
@@ -251,24 +251,24 @@ void QltGpLogger::writeGisCmd(QFile &file)
   QTextStream commands(&file);
 
   commands << this->comonCommands();
-	commands << this->textLabelsCommands();
+  commands << this->textLabelsCommands();
 
-	commands << "\nplot ";
+  commands << "\nplot ";
 
-	for (int i=0; i < polygonsLat_.size(); ++i)
-	{
-		commands << " datafile index " << i << " u 1:2 w lines title \"";
-		commands << polygonsLabels_.at(i) << "\", ";
-	}		 
+  for (int i=0; i < polygonsLat_.size(); ++i)
+  {
+    commands << " datafile index " << i << " u 1:2 w lines title \"";
+    commands << polygonsLabels_.at(i) << "\", ";
+  }		 
 
   for (int i=0; i < tracksLat_.size(); ++i)
-	{
-		commands << " datafile index " << polygonsLat_.size() + i << " u 1:2:3:4 w vectors title \"";
-		commands << tracksLabels_.at(i) << "\", ";
-	}		  
+  {
+    commands << " datafile index " << polygonsLat_.size() + i << " u 1:2:3:4 w vectors title \"";
+    commands << tracksLabels_.at(i) << "\", ";
+  }		  
 	
-	if (!toImageFlag_)
-		commands  << "\n\npause -1;\n"; 
+  if (!toImageFlag_)
+    commands  << "\n\npause -1;\n"; 
 }
 
 
@@ -276,24 +276,24 @@ QString QltGpLogger::comonCommands()
 {
   QString commands;
   commands = "datafile = \"" + fileName_ + ".txt\" \n" 
-			 +	"titlename = \"" + titleName_ + "\"\n"
-			 + "xlabelname = \"" + xLabelName_ + "\"\n"
-			 + "ylabelname = \"" + yLabelName_ + "\"\n"
-			 + "set grid; \n"
-			 + "\nset title titlename;\n" 
-			 + "set xlabel xlabelname;\n"
-			 + "set ylabel ylabelname;\n";
+    +	"titlename = \"" + titleName_ + "\"\n"
+    + "xlabelname = \"" + xLabelName_ + "\"\n"
+    + "ylabelname = \"" + yLabelName_ + "\"\n"
+    + "set grid; \n"
+    + "\nset title titlename;\n" 
+    + "set xlabel xlabelname;\n"
+    + "set ylabel ylabelname;\n";
 
   if (toImageFlag_)
-	{
+  {
     commands += "set terminal pngcairo size " + sizeImage_ + "\n";
     commands += "set output \"" + fileName_ + ".png\" \n";
-	}
+  }
 
   if (isRangeYAxis)
   {
     commands += "set yr [" + QString::number(y1_min_) + ":" + QString::number(y1_max_) + "] \n";
-		commands += "set y2r [" + QString::number(y2_min_) + ":" + QString::number(y2_max_) + "] \n";
+    commands += "set y2r [" + QString::number(y2_min_) + ":" + QString::number(y2_max_) + "] \n";
   }
   
   return commands;
@@ -319,23 +319,23 @@ QString QltGpLogger::textLabelsCommands()
 
 void QltGpLogger::setTitleName(QString name)
 {
-	titleName_ = name;
+  titleName_ = name;
 }
 
 void QltGpLogger::setXLabelName(QString name)
 {
-	xLabelName_ = name;
+  xLabelName_ = name;
 }
 
 void QltGpLogger::setYLabelName(QString name)
 {
-	yLabelName_ = name; 
+  yLabelName_ = name; 
 }
 
 
 void QltGpLogger::setY2LabelName(QString name)
 {
-	y2LabelName_ = name; 
+  y2LabelName_ = name; 
 }
 
 
