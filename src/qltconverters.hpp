@@ -22,7 +22,7 @@ public:
   {
     QStringList outContainer;
     
-    for (int index=0; index < inContainer.size(); ++index)
+    for (size_t index=0; index < inContainer.size(); ++index)
       outContainer.append(QString::number(inContainer.at(index)));
   
     return outContainer;
