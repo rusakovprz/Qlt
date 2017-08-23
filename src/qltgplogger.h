@@ -1,8 +1,8 @@
 /*
   File: qltgplogger.h
 
-  class QltGpLogger - gnuplot logger, агрегатор данных подготавливающий и 
-  записывающий данные в формате пригодном для визуализации с помощю gnuplot. 
+  class QltGpLogger - gnuplot logger, агрегатор данных подготавливающий и
+  записывающий данные в формате пригодном для визуализации с помощю gnuplot.
 
 */
 
@@ -22,7 +22,7 @@ public:
   QltGpLogger(Mode mode = GeneralMode);
 
   bool addColumn(QStringList column, QString label, bool axisY2 = false);
-	
+
   bool addPolygon(QStringList lat, QStringList lon, QString label);
   bool addTrack(QStringList lat, QStringList lon, QString label);
 
@@ -40,7 +40,7 @@ public:
 
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
 
-  // FIXME: Исключить ограничение - метод должен вызываться пред toFile(.....). 
+  // FIXME: Исключить ограничение - метод должен вызываться пред toFile(.....).
   void rangeYAxis();
 
 private:
@@ -55,16 +55,16 @@ private:
   QString textLabelsCommands();
 
   Mode mode_;
-    
+
   QList<QStringList> container_;
   QStringList labels_;
   QList<bool> axisY2Flag_;
-	
+
   double y1_min_;
   double y1_max_;
   double y2_min_;
   double y2_max_;
-	
+
   QList<QStringList> polygonsLat_;
   QList<QStringList> polygonsLon_;
   QStringList polygonsLabels_;
@@ -83,12 +83,12 @@ private:
   QString titleName_;
   QString xLabelName_;
   QString yLabelName_;
-  QString y2LabelName_; 
+  QString y2LabelName_;
 
   QStringList firstLabels_;
   QStringList graphLabels_;
   QStringList screenLabels_;
 
-  bool isRangeYAxis;  
+  bool isRangeYAxis;
 };
 

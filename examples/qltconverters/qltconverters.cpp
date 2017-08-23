@@ -10,7 +10,7 @@ int main()
 
   QVector<int> containerINT;
   containerINT << 1 << 2 << 3 << 4 << 5;
-  
+
   QStringList container;
   container = QltConverters::toQStringList(containerINT);
 
@@ -21,13 +21,12 @@ int main()
   container = QltConverters::toQStringList(containerDOUBLE);
 
   qDebug() << "QVector<double> = " << container;
-  
+
   std::vector<float> containerFLOAT(4, 1.2);
   container = QltConverters::toQStringList(containerFLOAT);
 
   qDebug() << "std::vector<float> = " << container;
-  
-  
+
   return 0;
 }
 

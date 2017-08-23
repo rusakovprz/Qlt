@@ -6,7 +6,7 @@ int main()
 
   QltGpLogger logger_gis(QltGpLogger::GisMode);
 
-  QStringList polygon_1_lat; 
+  QStringList polygon_1_lat;
   QStringList polygon_1_lon;
   polygon_1_lat.append("0");    polygon_1_lon.append("0");
   polygon_1_lat.append("5");    polygon_1_lon.append("0");
@@ -14,7 +14,7 @@ int main()
   polygon_1_lat.append("0");    polygon_1_lon.append("5");
   logger_gis.addPolygon(polygon_1_lat, polygon_1_lon, "polygon1");
 
-  QStringList polygon_2_lat; 
+  QStringList polygon_2_lat;
   QStringList polygon_2_lon;
   polygon_2_lat.append("5");    polygon_2_lon.append("0");
   polygon_2_lat.append("14");    polygon_2_lon.append("1");
@@ -23,7 +23,7 @@ int main()
   polygon_2_lat.append("5");    polygon_2_lon.append("5");
   logger_gis.addPolygon(polygon_2_lat, polygon_2_lon, "polygon2");
 
-  QStringList track_lat; 
+  QStringList track_lat;
   QStringList track_lon;
   track_lat.append("1");    track_lon.append("1");
   track_lat.append("4");    track_lon.append("2");
@@ -33,7 +33,7 @@ int main()
   track_lat.append("12.0");    track_lon.append("5");
   logger_gis.addTrack(track_lat, track_lon, "track");
 
-  QStringList track_2_lat; 
+  QStringList track_2_lat;
   QStringList track_2_lon;
   track_2_lat.append("10");    track_2_lon.append("4");
   track_2_lat.append("4");    track_2_lon.append("3");

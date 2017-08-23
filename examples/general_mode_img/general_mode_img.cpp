@@ -3,9 +3,8 @@
 
 int main()
 {
-  
   QltGpLogger logger_1;
-  
+
   QStringList column;
   column.append("1");
   column.append("4");
@@ -19,9 +18,9 @@ int main()
 	logger_1.setYLabelName("Y");
   logger_1.setImageMode();
   logger_1.toFile("data_gen_img_1");
-  
+
   QltGpLogger logger_2;
-  
+
   QStringList column2;
   column2.append("10");
   column2.append("20");
@@ -35,7 +34,7 @@ int main()
   column3.append("-3");
   column3.append("-2");
   column3.append("-7");
-  
+
   logger_2.addColumn(column2, "index");
   logger_2.addColumn(column, "column1");
   logger_2.addColumn(column3, "column2");

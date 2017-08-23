@@ -7,4 +7,4 @@ TARGET = qltconverters
 INCLUDEPATH += ../../src/
 
 # Input
-SOURCES += qltconverters.cpp 
+SOURCES += qltconverters.cpp
