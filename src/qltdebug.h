@@ -20,5 +20,11 @@ namespace QltDebug
    */
   void setMessagePattern();
 
+  /**
+   * @brief Устанавливает формат вывода отладочных сообщений c цветовой подстветкой типа сообщения.
+   * @details
+   */
+  void setMessagePatternColor();
+
 }
 

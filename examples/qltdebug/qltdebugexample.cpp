@@ -10,16 +10,20 @@ int main()
   qDebug() << "Debug message";
   qInfo() << "Info message";
   qWarning() << "Warning message";
-  qCritical() << "Critical message";
+  qCritical() << "Critical message\n";
 
   QltDebug::setMessagePatternDefault();
-  qDebug() << "\nDebug message";
+  qDebug() << "Debug message";
   qInfo() << "Info message";
   qWarning() << "Warning message";
   qCritical() << "Critical message\n";
 
+  QltDebug::setMessagePatternColor();
+  qDebug() << "Debug message";
+  qInfo() << "Info message";
+  qWarning() << "Warning message";
+  qCritical() << "Critical message\n";
 
-  QltDebug::setMessagePattern();
   qFatal("Fatal message.");
 
   return 0;
