@@ -1,22 +1,32 @@
-/*
-	File: qltconverters.hpp
-
-	class QltConverters - содержит набор статических методов для преобразования
-	типов контейнеров данных.
-
+/**
+ * @file: qltconverters.hpp
+ * @page qltconverters Преобразование контейнеров.
+ *
+ * Cодержит набор статических методов для преобразования
+ * типов контейнеров данных.
 */
 
 #include <QStringList>
 #include <QString>
 
-
+/**
+ * @brief Преобразование контейнеров данных.
+ * @details Cодержит набор статических методов для преобразования
+ *          типов контейнеров данных.
+ */
 class QltConverters
 {
 
 public:
 
-  // Преобразует числовые контейнеры (такие как: QVector<double>, QVector<int>, QList<double>, QList<int>,
-  // std::vector<double>,std::vector<int> и т.д.) в QStringList.
+  /**
+   * @brief Преобразует контейнеры данных.
+   * @details Преобразует числовые контейнеры (такие как: QVector<double>, QVector<int>,
+   *          QList<double>, QList<int>, std::vector<double>,std::vector<int> и т.д.) в QStringList.
+   *
+   * @param inContainer Входной контейнер.
+   * @return Выходной контейнер.
+   */
   template <typename TContainer>
   static QStringList toQStringList(TContainer inContainer)
   {

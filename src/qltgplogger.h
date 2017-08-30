@@ -1,16 +1,18 @@
-/*
-  File: qltgplogger.h
-
-  class QltGpLogger - gnuplot logger, агрегатор данных подготавливающий и
-  записывающий данные в формате пригодном для визуализации с помощю gnuplot.
-
-*/
+/**
+ * @file: qltgplogger.h
+ * @page qltgplogger Агрегатор данных (gnuplot)
+ *
+ * Используется для визуализации данных с помощю gnuplot.
+ */
 
 #include <QString>
 #include <QStringList>
 #include <QFile>
 
-
+/**
+ * @brief Aгрегатор данных (gnuplot).
+ * @details Подготавливает и записывающий данные в формате пригодном для визуализации с помощю gnuplot.
+ */
 class QltGpLogger
 {
 
