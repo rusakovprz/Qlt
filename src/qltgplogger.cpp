@@ -28,7 +28,9 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
   }
 
   if (lenColumn_ == 0)
+  {
     lenColumn_ = column.size();
+  }
 
   if (column.size() != lenColumn_)
   {
@@ -41,7 +43,9 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
   axisY2Flag_.append(axisY2);
 
   if (label.isEmpty())
+  {
     return true;
+  }
 
   for (int index=0; index < column.size(); ++index)
   {
@@ -50,18 +54,26 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
     if (axisY2)
     {
       if (number > y2_max_)
+      {
         y2_max_ = number;
+      }
 
       if (number < y2_min_)
+      {
         y2_min_ = number;
+      }
 
     } else
     {
       if (number > y1_max_)
+      {
         y1_max_ = number;
+      }
 
       if (number < y1_min_)
+      {
         y1_min_ = number;
+      }
     }
   }
 
@@ -157,10 +169,14 @@ void QltGpLogger::writeGenData(QFile &file, bool genIndex)
   for (int index = 0; index < lenColumn_; ++index)
   {
     if (genIndex)
+    {
       out << index <<"\t";
+    }
 
     for (int i = 0; i < container_.size(); ++i)
+    {
       out <<container_.at(i).at(index) <<"\t";
+    }
 
     out << "\n";
   }
@@ -202,7 +218,9 @@ void QltGpLogger::writeGenCmd(QFile &file, bool genIndex)
       commands << " datafile u 1:" << QString::number(i+1) <<" w lines title \"";
       commands << labels_.at(i) << "\"";
       if (axisY2Flag_.at(i))
+      {
         commands << " axes x1y2";
+      }
 
       commands << ", ";
     }
@@ -222,11 +240,15 @@ void QltGpLogger::writeGisData(QFile &file)
       QStringList longitude = polygonsLon_.at(index);
 
       for (int i = 0; i < latitude.size(); ++i)
+      {
         out << longitude.at(i) << "\t" << latitude.at(i) << "\n";
+      }
 
       // Замыкание полигона.
       if (latitude.size() > 0)
+      {
         out << longitude.at(0) << "\t" << latitude.at(0) << "\n";
+      }
 
       out << "\n";
       out << "\n";
@@ -238,9 +260,11 @@ void QltGpLogger::writeGisData(QFile &file)
       QStringList longitude = tracksLon_.at(index);
 
       for (int i = 0; i < latitude.size()-1; ++i)
+      {
         out << longitude.at(i) << "\t" << latitude.at(i) << "\t"
             << QString::number(longitude.at(i+1).toFloat()-longitude.at(i).toFloat()) << "\t"
             << QString::number(latitude.at(i+1).toFloat()-latitude.at(i).toFloat()) << "\n";
+      }
 
       out << "\n";
       out << "\n";
@@ -270,7 +294,9 @@ void QltGpLogger::writeGisCmd(QFile &file)
   }
 
   if (!toImageFlag_)
+  {
     commands  << "\n\npause -1;\n";
+  }
 }
 
 
@@ -307,13 +333,19 @@ QString QltGpLogger::textLabelsCommands()
   QString commands;
 
   for (int index = 0; index < firstLabels_.size(); ++index)
+  {
     commands += firstLabels_.at(index);
+  }
 
   for (int index = 0; index < graphLabels_.size(); ++index)
+  {
     commands += graphLabels_.at(index);
+  }
 
   for (int index = 0; index < screenLabels_.size(); ++index)
+  {
     commands += screenLabels_.at(index);
+  }
 
   return commands;
 }
