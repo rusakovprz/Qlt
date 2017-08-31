@@ -33,7 +33,9 @@ public:
     QStringList outContainer;
 
     for (size_t index=0; index < inContainer.size(); ++index)
+    {
       outContainer.append(QString::number(inContainer.at(index)));
+    }
 
     return outContainer;
   };
