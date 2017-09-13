@@ -21,9 +21,9 @@ QltGpLogger::QltGpLogger(Mode mode):
 
 bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 {
-  if (column.size() == 0)
+  if (column.isEmpty() == 0)
   {
-    errorString_ = "Error! #1";
+    errorString_ = "Error: param 'column' is empty.";
     return false;
   }
 
@@ -34,7 +34,7 @@ bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 
   if (column.size() != lenColumn_)
   {
-    errorString_ = "Error! #2";
+    errorString_ = "Error: number items param 'column' not equal is already columns.";
     return false;
   }
 
@@ -85,7 +85,7 @@ bool QltGpLogger::addPolygon(QStringList lat, QStringList lon, QString label)
 {
   if (lat.size() != lon.size())
   {
-    errorString_ = "Error! #5";
+    errorString_ = "Error: number items param 'lat' not equal number items param 'lon'.";
     return false;
   }
 
@@ -101,7 +101,7 @@ bool QltGpLogger::addTrack(QStringList lat, QStringList lon, QString label)
 {
   if (lat.size() != lon.size())
   {
-    errorString_ = "Error! #5";
+    errorString_ = "Error: number items param 'lat' not equal number items param 'lon'.";
     return false;
   }
 
@@ -133,14 +133,14 @@ bool QltGpLogger::toFile(QString fileName, bool genIndex)
   QFile fileData(fileName + ".txt");
   if (!fileData.open(QIODevice::WriteOnly | QIODevice::Text))
   {
-    errorString_ = "Error! #3";
+    errorString_ = "Error: could not create file ( .txt ).";
     return false;
   }
 
   QFile fileCmd(fileName + ".gpl");
   if (!fileCmd.open(QIODevice::WriteOnly | QIODevice::Text))
   {
-    errorString_ = "Error! #4";
+    errorString_ = "Error: could not create .gpl file.";
     return false;
   }
 
