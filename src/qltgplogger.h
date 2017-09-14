@@ -23,6 +23,17 @@ public:
 
   QltGpLogger(Mode mode = GeneralMode);
 
+  /**
+   * @brief Добавляет "столбец" данных.
+   * @details Добавляет данные во внутрениий контейнер.
+   *
+   * @param column Данные.
+   * @param label Текстовая метка.
+   * @param axisY2 Признак отображения на правой вертикальной оси.
+   * @return true в случае успешного авполения метода.
+   * @return false в случае возникновения ошибки.
+   * @see errorString
+   */
   bool addColumn(QStringList column, QString label, bool axisY2 = false);
 
   bool addPolygon(QStringList lat, QStringList lon, QString label);
