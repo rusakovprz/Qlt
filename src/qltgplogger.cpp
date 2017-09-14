@@ -162,6 +162,12 @@ bool QltGpLogger::toFile(QString fileName, bool genIndex)
 }
 
 
+QString QltGpLogger::errorString()
+{
+  return errorString_;
+};
+
+
 void QltGpLogger::writeGenData(QFile &file, bool genIndex)
 {
   QTextStream out(&file);

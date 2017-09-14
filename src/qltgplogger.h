@@ -44,7 +44,7 @@ public:
 
   bool toFile(QString fileName = "gpdata", bool genIndex = true);
 
-  QString errorString() { return errorString_; };
+  QString errorString();
 
   void setTitleName(QString name);
   void setXLabelName(QString name);
