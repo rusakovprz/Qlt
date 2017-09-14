@@ -44,6 +44,11 @@ public:
 
   bool toFile(QString fileName = "gpdata", bool genIndex = true);
 
+  /**
+   * @brief Возвращает текстовое сообщение ошибки.
+   * @details Если выполнение открытого метода класса завершилось ошибкой,
+   *          возвращаемое значение, будет содержать тектовое описание ошибки.
+   */
   QString errorString();
 
   void setTitleName(QString name);
