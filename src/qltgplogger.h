@@ -52,6 +52,14 @@ public:
    */
   void setGuiMode();
 
+  /**
+   * @brief Записывает данные и gnuplot команды в соответствующие файлы.
+   * @param fileName Названия выходных файлов (без расширения).
+   * @param genIndex Признак, необходимости генерации "индекса данных", значений по горизонтальной оси.
+   * @return true в случае успешного авполения метода.
+   * @return false в случае возникновения ошибки.
+   * @see errorString
+   */
   bool toFile(QString fileName = "gpdata", bool genIndex = true);
 
   /**
