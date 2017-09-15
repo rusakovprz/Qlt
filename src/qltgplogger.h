@@ -39,7 +39,17 @@ public:
   bool addPolygon(QStringList lat, QStringList lon, QString label);
   bool addTrack(QStringList lat, QStringList lon, QString label);
 
+  /**
+   * @brief Устанавливает режим генерации файла изображения.
+   * @param size Разрешение выходного графического файла.
+   * @see setGuiMode
+   */
   void setImageMode(QString size = "800,600");
+
+  /**
+   * @brief Устанавливает режим просмотра данных в графическом окне gnuplot.
+   * @see setImageMode
+   */
   void setGuiMode();
 
   bool toFile(QString fileName = "gpdata", bool genIndex = true);
