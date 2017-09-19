@@ -69,9 +69,28 @@ public:
    */
   QString errorString();
 
+  /**
+   * @brief Присваивает значение namе тектовому полю "Название графика" в канве графика.
+   * @param name Название графика.
+   */
   void setTitleName(QString name);
+
+  /**
+   * @brief Устанавливает название оси абсцисс.
+   * @param name название оси абсцисс.
+   */
   void setXLabelName(QString name);
+
+  /**
+   * @brief Устанавливает название оси ординат (с лева).
+   * @param name название оси ординат.
+   */
   void setYLabelName(QString name);
+
+  /**
+   * @brief Устанавливает название оси ординат (с права).
+   * @param name название оси ординат.
+   */
   void setY2LabelName(QString name);
 
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
