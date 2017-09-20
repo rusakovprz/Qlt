@@ -21,7 +21,7 @@ QltGpLogger::QltGpLogger(Mode mode):
 
 bool QltGpLogger::addColumn(QStringList column, QString label, bool axisY2)
 {
-  if (column.isEmpty() == 0)
+  if (column.isEmpty())
   {
     errorString_ = "Error: param 'column' is empty.";
     return false;
