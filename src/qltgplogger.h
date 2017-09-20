@@ -82,13 +82,13 @@ public:
   void setXLabelName(QString name);
 
   /**
-   * @brief Устанавливает название оси ординат (с лева).
+   * @brief Устанавливает название оси ординат (слева).
    * @param name название оси ординат.
    */
   void setYLabelName(QString name);
 
   /**
-   * @brief Устанавливает название оси ординат (с права).
+   * @brief Устанавливает название оси ординат (справа).
    * @param name название оси ординат.
    */
   void setY2LabelName(QString name);
