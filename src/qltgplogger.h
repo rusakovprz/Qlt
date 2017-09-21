@@ -18,6 +18,7 @@ class QltGpLogger
 
 public:
 
+  /// Режим отображения данных.
   enum Mode {GeneralMode, GisMode};
 
   /// Тип текстовой метки на канве графика.
