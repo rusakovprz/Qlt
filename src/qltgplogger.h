@@ -96,15 +96,20 @@ public:
   void setY2LabelName(QString name);
 
   /**
-   * @brief [brief description]
-   * @details [long description]
-   * 
-   * @param rangeYAxis [description]
+   * @brief Добавляет тектовую метку на диаграмму.
+   * @param type Тип текстовой метки.
+   * @param x координата по горизонтальной оси.
+   * @param y координата по вертикальой оси.
+   * @param text содержание метки.
+   * @param color цвет текстовой метки.
    * @return [description]
    */
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
 
-  // FIXME: Исключить ограничение - метод должен вызываться пред toFile(.....).
+  /**
+   * @brief Масштабирование по горизонтальной оси.
+   * @fixme: Исключить ограничение - метод должен вызываться пред toFile(.....).
+   */
   void rangeYAxis();
 
 private:
