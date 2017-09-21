@@ -18,7 +18,9 @@ class QltGpLogger
 
 public:
 
-  enum Mode { GeneralMode, GisMode };
+  enum Mode {GeneralMode, GisMode};
+
+  /// Тип текстовой метки на канве графика.
   enum LabelType {First, Graph, Screen};
 
   QltGpLogger(Mode mode = GeneralMode);
@@ -93,6 +95,13 @@ public:
    */
   void setY2LabelName(QString name);
 
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param rangeYAxis [description]
+   * @return [description]
+   */
   void addLabel(LabelType type, double x, double y, QString text, QString color = "#000000");
 
   // FIXME: Исключить ограничение - метод должен вызываться пред toFile(.....).
