@@ -39,6 +39,14 @@ public:
    */
   bool addColumn(QStringList column, QString label, bool axisY2 = false);
 
+  /**
+   * @brief Добавляет "полигон" (замкнутую линию) с координатами lat, lon.
+   * @param lat контейнер значений "широта".
+   * @param lat контейнер значений "долшлта".
+   * @param label Название полигона.
+   * @return false в случае возникновения ошибки.
+   * @see errorString
+   */
   bool addPolygon(QStringList lat, QStringList lon, QString label);
   bool addTrack(QStringList lat, QStringList lon, QString label);
 
