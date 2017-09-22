@@ -43,11 +43,20 @@ public:
    * @brief Добавляет "полигон" (замкнутую линию) с координатами lat, lon.
    * @param lat контейнер значений "широта".
    * @param lat контейнер значений "долшлта".
-   * @param label Название полигона.
+   * @param label название полигона.
    * @return false в случае возникновения ошибки.
    * @see errorString
    */
   bool addPolygon(QStringList lat, QStringList lon, QString label);
+
+  /**
+   * @brief Добавляет "трек" с координатами lat, lon.
+   * @param lat контейнер значений "широта".
+   * @param lat контейнер значений "долшлта".
+   * @param label название трека.
+   * @return false в случае возникновения ошибки.
+   * @see errorString
+   */
   bool addTrack(QStringList lat, QStringList lon, QString label);
 
   /**
